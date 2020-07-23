@@ -5,10 +5,19 @@
 > Tools for Cyber wallet management and offline transaction signing
 
 ## Installing
-Installing from PyPI repository (https://pypi.org/project/cyberpy):
+
+#### Installing from PyPI [repository](https://pypi.org/project/cyberpy):
 
 ```bash
 pip install cyberpy
+```
+
+#### Installing from source code:
+
+```bash
+git clone https://github.com/SaveTheAles/cyberpy
+cd cyberpy
+pip3 install .
 ```
 
 ## Usage
