@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='cyberpy',
-    version='0.0.3',
+    version='0.0.4',
     packages=['cyberpy'],
     url='https://github.com/SaveTheAles/cyberpy',
     license='MIT',
