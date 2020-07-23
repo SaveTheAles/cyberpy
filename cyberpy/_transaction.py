@@ -5,12 +5,12 @@ from typing import Any, Dict, List
 
 import ecdsa
 
-from cosmospy._wallet import privkey_to_address, privkey_to_pubkey
-from cosmospy.typing import SyncMode
+from cyberpy._wallet import privkey_to_address, privkey_to_pubkey
+from cyberpy.typing import SyncMode
 
 
 class Transaction:
-    """A Cosmos transaction.
+    """A Cyber transaction.
 
     After initialization, one or more token transfers can be added by
     calling the `add_transfer()` method. Finally, call `get_pushable()`
@@ -26,9 +26,9 @@ class Transaction:
         sequence: int,
         fee: int,
         gas: int,
-        fee_denom: str = "uatom",
-        memo: str = "",
-        chain_id: str = "cosmoshub-3",
+        fee_denom: str = "eul",
+        memo: str = "test",
+        chain_id: str = "euler-6",
         sync_mode: SyncMode = "sync",
     ) -> None:
         self._privkey = privkey
@@ -53,6 +53,16 @@ class Transaction:
         }
         self._msgs.append(transfer)
 
+    def add_cyberlink(self, cid_from: str, cid_to: str) -> None:
+        cyberlink = {
+            "type": "cyber/Link",
+            "value": {
+                "address": privkey_to_address(self._privkey),
+                "links": [{"from": cid_from, "to": cid_to}]
+            }
+        }
+        self._msgs.append(cyberlink)
+
     def get_pushable(self) -> str:
         pubkey = privkey_to_pubkey(self._privkey)
         base64_pubkey = base64.b64encode(pubkey).decode("utf-8")
@@ -60,8 +70,8 @@ class Transaction:
             "tx": {
                 "msg": self._msgs,
                 "fee": {
-                    "gas": str(self._gas),
-                    "amount": [{"denom": self._fee_denom, "amount": str(self._fee)}],
+                    "gas": "200000",
+                    "amount": [],
                 },
                 "memo": self._memo,
                 "signatures": [
@@ -94,8 +104,8 @@ class Transaction:
             "chain_id": self._chain_id,
             "account_number": str(self._account_num),
             "fee": {
-                "gas": str(self._gas),
-                "amount": [{"amount": str(self._fee), "denom": self._fee_denom}],
+                "gas": "200000",
+                "amount": [],
             },
             "memo": self._memo,
             "sequence": str(self._sequence),
