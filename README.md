@@ -127,7 +127,7 @@ import requests
 res = requests.post(url=LCD_API+'/txs', data=tx)
 ```
 
-All necessary data for tx filling like `account_namber` and 'sequence' you can get from [cyber REST API](https://api.cyber.cybernode.ai/):
+All necessary data for tx filling like `account_number` and `sequence` you can get from [cyber REST API](https://api.cyber.cybernode.ai/):
 
 ```
 https://api.cyber.cybernode.ai/account?address="cyber1uwfk6h06w8vnhmyp48vwcpgwncsec8yv46uan4"

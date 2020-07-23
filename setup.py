@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='cyberpy',
-    version='0.0.2',
+    version='0.0.3',
     packages=['cyberpy'],
     url='https://github.com/SaveTheAles/cyberpy',
     license='MIT',
@@ -14,7 +14,7 @@ setup(
     description='Tools for Cyber wallet management and offline transaction signing',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    install_requires=[            # I get to this in a second
+    install_requires=[
         'ecdsa',
         'bech32',
         'hdwallets',
