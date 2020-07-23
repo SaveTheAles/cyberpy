@@ -1,5 +1,8 @@
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='cyberpy',
     version='0.0.1',
@@ -9,6 +12,8 @@ setup(
     author='alpuchilo',
     author_email='ales.puchilo@gmail.com',
     description='Tools for Cyber wallet management and offline transaction signing',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     install_requires=[            # I get to this in a second
         'ecdsa',
         'bech32',
