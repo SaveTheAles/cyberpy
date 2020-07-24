@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='cyberpy',
-    version='0.0.4',
+    version='0.0.5',
     packages=['cyberpy'],
     url='https://github.com/SaveTheAles/cyberpy',
     license='MIT',
@@ -18,6 +18,7 @@ setup(
         'ecdsa',
         'bech32',
         'hdwallets',
-        'mnemonic'
+        'mnemonic',
+        'typing-extensions'
       ]
 )

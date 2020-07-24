@@ -1,6 +1,6 @@
 # cyberpy
 
-> Version 0.0.4
+> Version 0.0.5
 
 > Tools for Cyber wallet management and offline transaction signing
 
