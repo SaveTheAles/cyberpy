@@ -1,6 +1,6 @@
 # cyberpy
 
-> Version 0.0.5
+> Version 0.0.6
 
 > Tools for Cyber wallet management and offline transaction signing
 
@@ -124,7 +124,7 @@ When the transaction is fully prepared, calling `get_pushable` will return a sig
 ```python
 import requests
 
-res = requests.post(url=LCD_API+'/txs', data=tx)
+res = requests.post(url=LCD_API+'/txs', data=pushable_tx)
 ```
 
 All necessary data for tx filling like `account_number` and `sequence` you can get from [cyber REST API](https://api.cyber.cybernode.ai/):
