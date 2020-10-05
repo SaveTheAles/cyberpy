@@ -42,7 +42,7 @@ class Transaction:
         self._sync_mode = sync_mode
         self._msgs: List[dict] = []
 
-    def add_transfer(self, recipient: str, amount: int, denom: str = "uatom") -> None:
+    def add_transfer(self, recipient: str, amount: int, denom: str = "eul") -> None:
         transfer = {
             "type": "cosmos-sdk/MsgSend",
             "value": {
