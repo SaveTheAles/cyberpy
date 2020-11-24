@@ -57,6 +57,9 @@ def pubkey_to_address(pubkey: bytes) -> str:
     assert five_bit_r is not None, "Unsuccessful bech32.convertbits call"
     return bech32.bech32_encode("cyber", five_bit_r)
 
+def address_to_address(address: str, prefix: str) -> str:
+    five_bit_r = bech32.bech32_decode(address)[1]
+    return bech32.bech32_encode(prefix, five_bit_r)
 
 def privkey_to_address(privkey: bytes) -> str:
     pubkey = privkey_to_pubkey(privkey)
