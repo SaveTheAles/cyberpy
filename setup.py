@@ -19,6 +19,7 @@ setup(
         'bech32',
         'hdwallets',
         'mnemonic',
-        'typing-extensions'
+        'typing-extensions',
+        'requests'
       ]
 )

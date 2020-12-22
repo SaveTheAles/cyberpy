@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import json
+import requests
 from typing import Any, Dict, List
 
 import ecdsa
@@ -13,9 +14,10 @@ class Transaction:
     """A Cyber transaction.
 
     After initialization, one or more token transfers can be added by
-    calling the `add_transfer()` method. Finally, call `get_pushable()`
+    calling the `add_transfer()`, `add_cyberlink` method. Then, call `get_pushable()`
     to get a signed transaction that can be pushed to the `POST /txs`
-    endpoint of the Cosmos REST API.
+    endpoint of the Cyber REST API or call `broadcast(LCD_API=<LCD_API>)` method
+    to get signed transaction and broadcast it with LCD_API.
     """
 
     def __init__(
@@ -86,6 +88,15 @@ class Transaction:
             "mode": self._sync_mode,
         }
         return json.dumps(pushable_tx, separators=(",", ":"))
+
+    def broadcast(self, LCD_API: str):
+        res = requests.post(url=LCD_API + '/txs', data=self.get_pushable())
+        if res.status_code == 200:
+            res = res.json()
+            return res
+        else:
+            raise Exception("Broadcact failed to run by returning code of {}".format(res.status_code))
+
 
     def _sign(self) -> str:
         message_str = json.dumps(self._get_sign_message(), separators=(",", ":"), sort_keys=True)

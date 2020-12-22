@@ -127,8 +127,8 @@ import requests
 res = requests.post(url=LCD_API+'/txs', data=pushable_tx)
 ```
 
-All necessary data for tx filling like `account_number` and `sequence` you can get from [cyber REST API](https://api.cyber.cybernode.ai/):
+Or you can call `broadcast(LCD_API: str)` method and it will make a signed transaction and POST it with defined LCD_API.
 
-```
-https://api.cyber.cybernode.ai/account?address="cyber1uwfk6h06w8vnhmyp48vwcpgwncsec8yv46uan4"
+```python
+res = tx.broadcast(LCD_API=<LCD_API>)
 ```

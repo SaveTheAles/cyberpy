@@ -9,7 +9,6 @@ from cyberpy.typing import Wallet
 
 DEFAULT_DERIVATION_PATH = "m/44'/118'/0'/0/0"
 
-
 def generate_wallet() -> Wallet:
     while True:
         phrase = mnemonic.Mnemonic(language="english").generate(strength=256)
