@@ -1,6 +1,6 @@
 # cyberpy
 
-> Version 0.0.7
+> Version 0.0.8
 
 > Tools for Cyber wallet management and offline transaction signing
 
@@ -75,6 +75,13 @@ privkey = bytes.fromhex("6dcd05d7ac71e09d3cf7da666709ebd59362486ff9e99db0e8bc663
 addr = privkey_to_address(privkey)
  ```
 
+#### Address to address
+
+```python
+from cyberpy import address_to_address
+addr = address_to_address(address, prefix)
+ ```
+
 ### Signing transactions
 
 #### Send transaction
@@ -93,7 +100,6 @@ tx = Transaction(
 )
 tx.add_transfer(recipient="cyber103l758ps7403sd9c0y8j6hrfw4xyl70j4mmwkf", amount=387000)
 tx.add_transfer(recipient="cyber1lzumfk6xvwf9k9rk72mqtztv867xyem393um48", amount=123)
-pushable_tx = tx.get_pushable()
 ```
 
 One or more token transfers can be added to a transaction by calling the `add_transfer` method.
@@ -114,12 +120,85 @@ tx = Transaction(
 )
 tx.add_cyberlink(cid_from="QmceNpj6HfS81PcCaQXrFMQf7LR5FTLkdG9sbSRNy3UXoZ", cid_to="QmRX8qYgeZoYM3M5zzQaWEpVFdpin6FvVXvp6RPQK3oufV")
 tx.add_cyberlink(cid_from="QmXsJKAog3tTNEGfHNmSYjdiLYFkq4URrxDpMQpwfBRUtP", cid_to="QmTiXybNXEYbfVEy6bhBSw67u6NHXsB2h36xhwPcCQyRgp")
+```
+
+One or more cyberlink messages can be added to a transaction by calling the `add_cyberlink` method.
+
+#### Delegate transaction
+
+```python
+from cyberpy import Transaction
+tx = Transaction(
+    privkey=bytes.fromhex("26d167d549a4b2b66f766b0d3f2bdbe1cd92708818c338ff453abde316a2bd59"),
+    account_num=11335,
+    sequence=0,
+    fee=0,
+    gas=200000,
+    memo="",
+    chain_id="euler-6",
+    sync_mode="sync",
+)
+tx.add_delegation(validator="cybervaloperaddress", amount=123)
+```
+
+#### Redelegate transaction
+
+```python
+from cyberpy import Transaction
+tx = Transaction(
+    privkey=bytes.fromhex("26d167d549a4b2b66f766b0d3f2bdbe1cd92708818c338ff453abde316a2bd59"),
+    account_num=11335,
+    sequence=0,
+    fee=0,
+    gas=200000,
+    memo="",
+    chain_id="euler-6",
+    sync_mode="sync",
+)
+tx.add_redelegation(validator_src="cybervaloperaddress_src", validator_dst="cybervaloperaddress_dst", amount=123)
+```
+
+#### Undelegate transaction
+
+```python
+from cyberpy import Transaction
+tx = Transaction(
+    privkey=bytes.fromhex("26d167d549a4b2b66f766b0d3f2bdbe1cd92708818c338ff453abde316a2bd59"),
+    account_num=11335,
+    sequence=0,
+    fee=0,
+    gas=200000,
+    memo="",
+    chain_id="euler-6",
+    sync_mode="sync",
+)
+tx.add_undelegation(validator="cybervaloperaddress", amount=123)
+```
+
+#### Withdraw transaction
+
+```python
+from cyberpy import Transaction
+tx = Transaction(
+    privkey=bytes.fromhex("26d167d549a4b2b66f766b0d3f2bdbe1cd92708818c338ff453abde316a2bd59"),
+    account_num=11335,
+    sequence=0,
+    fee=0,
+    gas=200000,
+    memo="",
+    chain_id="euler-6",
+    sync_mode="sync",
+)
+tx.add_withdraw(validator="cybervaloperaddress")
+```
+
+When the transaction is fully prepared, calling `get_pushable` will return a signed transaction in the form of a JSON string.
+
+```python
 pushable_tx = tx.get_pushable()
 ```
 
-One or more cyberlink messages can be added to a transaction by calling the `add_transfer` method.
-
-When the transaction is fully prepared, calling `get_pushable` will return a signed transaction in the form of a JSON string. This can be used as request body when calling the `POST /txs` endpoint of the [cyber REST API](https://lcd.cyber.cybernode.ai/swagger-ui/#/Transactions/post_txs):
+ This can be used as request body when calling the `POST /txs` endpoint of the [cyber REST API](https://lcd.cyber.cybernode.ai/swagger-ui/#/Transactions/post_txs):
 
 ```python
 import requests

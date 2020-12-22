@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setup(
     name='cyberpy',
-    version='0.0.7',
+    version='0.0.8',
     packages=['cyberpy'],
     url='https://github.com/SaveTheAles/cyberpy',
     license='MIT',
     author='alpuchilo',
     author_email='ales.puchilo@gmail.com',
-    description='Tools for Cyber wallet management and offline transaction signing',
+    description='Tools for Cyber wallet management, offline transaction signing and broadcasting',
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
