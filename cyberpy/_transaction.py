@@ -50,8 +50,8 @@ class Transaction:
             "value": {
                 "from_address": privkey_to_address(self._privkey),
                 "to_address": recipient,
-                "amount": [{"denom": denom, "amount": str(amount)}],
-            },
+                "amount": [{"denom": denom, "amount": str(amount)}]
+            }
         }
         self._msgs.append(transfer)
 
@@ -64,6 +64,51 @@ class Transaction:
             }
         }
         self._msgs.append(cyberlink)
+
+    def add_delegation(self, validator: str, amount: int, denom: str = "eul") -> None:
+        delegation = {
+            "type": "cosmos-sdk/MsgDelegate",
+            "value": {
+                "delegator_address": privkey_to_address(self._privkey),
+                "validator_address": validator,
+                "amount": {"denom": denom, "amount": str(amount)}
+            }
+        }
+        self._msgs.append(delegation)
+
+    def add_undelegation(self, validator:  str, amount: int, denom: str = "eul"):
+        undelegation = {
+            "type": "cosmos-sdk/MsgUndelegate",
+            "value": {
+                "delegator_address": privkey_to_address(self._privkey),
+                "validator_address": validator,
+                "amount": {"denom": denom, "amount": str(amount)}
+            }
+        }
+        self._msgs.append(undelegation)
+
+    def add_redelegation(self, validator_src: str, validator_dst: str, amount: int, denom: str = "eul"):
+        redelegation = {
+            "type": "cosmos-sdk/MsgBeginRedelegate",
+            "value": {
+                "delegator_address": privkey_to_address(self._privkey),
+                "validator_src_address": validator_src,
+                "validator_dst_address": validator_dst,
+                "amount": {"denom": denom, "amount": str(amount)}
+            }
+        }
+        self._msgs.append(redelegation)
+
+    def add_withdraw(self, validator: str):
+        withdraw = {
+            "type": "cosmos-sdk/MsgWithdrawDelegationReward",
+            "value": {
+                "delegator_address": privkey_to_address(self._privkey),
+                "validator_address": validator
+            }
+        }
+        self._msgs.append(withdraw)
+
 
     def get_pushable(self) -> str:
         pubkey = privkey_to_pubkey(self._privkey)
